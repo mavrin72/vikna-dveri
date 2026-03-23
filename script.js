@@ -21,41 +21,53 @@ let currentType = 'window';
 let currentProfile = 'standard';
 let currentGlass = 'double';
 
-const basePrices = { window: 3200, door: 9800, balcony: 6500 };
+const basePrices = { window: 3500, door: 6800, balcony: 10500 };
 const profileMult = { standard: 1, comfort: 1.25, premium: 1.6 };
 const glassMult = { double: 1, triple: 1.18, lowe: 1.32 };
-const installPrice = { window: 1200, door: 2200, balcony: 1800 };
 
 function setType(el, val) {
   currentType = val;
-  document.querySelectorAll('#typeTabs .calc-tab').forEach(b => b.classList.remove('active'));
-  el.classList.add('active'); calc();
+  const tabs = document.querySelectorAll('#typeTabs .calc-tab');
+  if(tabs.length) tabs.forEach(b => b.classList.remove('active'));
+  if(el) el.classList.add('active'); 
+  calc();
 }
 
 function setProfile(el, val) {
   currentProfile = val;
-  document.querySelectorAll('#profileTabs .calc-tab').forEach(b => b.classList.remove('active'));
-  el.classList.add('active'); calc();
+  const tabs = document.querySelectorAll('#profileTabs .calc-tab');
+  if(tabs.length) tabs.forEach(b => b.classList.remove('active'));
+  if(el) el.classList.add('active'); 
+  calc();
 }
 
 function setGlass(el, val) {
   currentGlass = val;
-  document.querySelectorAll('#glassTabs .calc-tab').forEach(b => b.classList.remove('active'));
-  el.classList.add('active'); calc();
+  const tabs = document.querySelectorAll('#glassTabs .calc-tab');
+  if(tabs.length) tabs.forEach(b => b.classList.remove('active'));
+  if(el) el.classList.add('active'); 
+  calc();
 }
 
 function adjustDim(id, delta) {
   const el = document.getElementById(id);
-  el.value = Math.max(40, Math.min(300, parseInt(el.value || 100) + delta));
-  calc();
+  if(el) {
+    el.value = Math.max(40, Math.min(300, parseInt(el.value || 100) + delta));
+    calc();
+  }
 }
 
 function fmt(n) { return n.toLocaleString('uk-UA') + ' ₴'; }
 
 function calc() {
-  const w = parseInt(document.getElementById('width').value) || 120;
-  const h = parseInt(document.getElementById('height').value) || 140;
-  const qty = parseInt(document.getElementById('qty').value) || 1;
+  // 1. Безпечно отримуємо елементи
+  const wEl = document.getElementById('width');
+  const hEl = document.getElementById('height');
+  const qtyEl = document.getElementById('qty');
+
+  const w = wEl ? parseInt(wEl.value) || 120 : 120;
+  const h = hEl ? parseInt(hEl.value) || 140 : 140;
+  const qty = qtyEl ? parseInt(qtyEl.value) || 1 : 1;
 
   const area = (w / 100) * (h / 100);
   const areaFactor = Math.max(0.7, Math.min(2.5, area));
@@ -64,35 +76,60 @@ function calc() {
   base = Math.round(base / 50) * 50;
 
   let options = 0;
-  if (document.getElementById('opt_sill').checked) options += Math.round(w * 18);
-  if (document.getElementById('opt_mosquito').checked) options += 680;
-  if (document.getElementById('opt_color').checked) options += Math.round(base * 0.12);
+  
+  const optSill = document.getElementById('opt_sill');
+  if (optSill && optSill.checked) options += Math.round(w * 18);
+
+  const optMosq = document.getElementById('opt_mosquito');
+  if (optMosq && optMosq.checked) options += 680;
+
+  const optColor = document.getElementById('opt_color');
+  if (optColor && optColor.checked) options += Math.round(base * 0.12);
 
   let install = 0;
-  if (document.getElementById('opt_install').checked) install = installPrice[currentType];
+  const optInstall = document.getElementById('opt_install');
+  if (optInstall && optInstall.checked) {
+      install = Math.max(800, Math.round(area * 800)); // Від 800 грн за метр
+  }
 
   const perUnit = base + options + install;
   const total = perUnit * qty;
 
-  document.getElementById('resultPrice').textContent = fmt(perUnit);
-  document.getElementById('resultPer').textContent = qty > 1 ? `за 1 шт. · разом: ${fmt(total)}` : 'за 1 шт.';
+  // 2. Безпечно оновлюємо HTML (якщо елемент є на сторінці)
+  const priceEl = document.getElementById('resultPrice');
+  if (priceEl) priceEl.textContent = fmt(perUnit);
 
-  document.getElementById('b_product').textContent = fmt(base);
-  document.getElementById('b_install').textContent = install ? fmt(install) : 'не обрано';
-  document.getElementById('b_options').textContent = options ? fmt(options) : 'не обрано';
-  document.getElementById('b_total').textContent = fmt(total);
+  const perEl = document.getElementById('resultPer');
+  if (perEl) perEl.textContent = qty > 1 ? `за 1 шт. · разом: ${fmt(total)}` : 'за 1 шт.';
+
+  const bProd = document.getElementById('b_product');
+  if (bProd) bProd.textContent = fmt(base);
+
+  const bInst = document.getElementById('b_install');
+  if (bInst) bInst.textContent = install ? fmt(install) : 'не обрано';
+
+  const bOpt = document.getElementById('b_options');
+  if (bOpt) bOpt.textContent = options ? fmt(options) : 'не обрано';
+
+  const bTotal = document.getElementById('b_total');
+  if (bTotal) bTotal.textContent = fmt(total);
 }
 
+// Запускаємо калькулятор при завантаженні
 calc();
 
 // WEBHOOK HANDLER (Відправка форми)
 async function handleSubmit(btn) {
-  const name = document.getElementById('clientName').value.trim();
-  const phone = document.getElementById('clientPhone').value.trim();
-  const product = document.getElementById('clientProduct').value;
-  const comment = document.getElementById('clientComment').value.trim();
+  const nameEl = document.getElementById('clientName');
+  const phoneEl = document.getElementById('clientPhone');
+  const productEl = document.getElementById('clientProduct');
+  const commentEl = document.getElementById('clientComment');
 
-  // Мінімальна перевірка
+  const name = nameEl ? nameEl.value.trim() : '';
+  const phone = phoneEl ? phoneEl.value.trim() : '';
+  const product = productEl ? productEl.value : 'Не обрано';
+  const comment = commentEl ? commentEl.value.trim() : '';
+
   if (!name || !phone) { 
     alert('Будь ласка, вкажіть ваше ім\'я та номер телефону.'); 
     return; 
@@ -102,18 +139,16 @@ async function handleSubmit(btn) {
   btn.disabled = true;
   btn.textContent = 'Відправка...';
 
-  // Твій вебхук
   const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzx_CK43-reXVZ4amB-MynFlYHUSTTRnauj8BVpkOvAtbE2zaB5ytNv0cfKh_bVKTT3Eg/exec';
 
   const payload = {
     name: name,
     phone: phone,
-    product: product || 'Не обрано',
-    comment: comment || 'Немає'
+    product: product,
+    comment: comment
   };
 
   try {
-    // Відправка з text/plain для уникнення блокування браузером (CORS)
     await fetch(WEBHOOK_URL, {
       method: 'POST',
       headers: {
@@ -122,24 +157,20 @@ async function handleSubmit(btn) {
       body: JSON.stringify(payload)
     });
 
-    // Успіх
     btn.textContent = '✓ Заявку надіслано!';
     btn.style.background = '#4caf50';
     
-    // Очищення полів
-    document.getElementById('clientName').value = '';
-    document.getElementById('clientPhone').value = '';
-    document.getElementById('clientProduct').value = '';
-    document.getElementById('clientComment').value = '';
+    if(nameEl) nameEl.value = '';
+    if(phoneEl) phoneEl.value = '';
+    if(productEl) productEl.value = '';
+    if(commentEl) commentEl.value = '';
 
   } catch (error) {
-    // Помилка
     console.error('Помилка відправки:', error);
     btn.textContent = '❌ Помилка. Спробуйте ще';
     btn.style.background = '#f44336';
   }
 
-  // Відновлення кнопки
   setTimeout(() => { 
     btn.disabled = false; 
     btn.textContent = originalText; 
