@@ -258,14 +258,41 @@ textarea { resize: vertical; min-height: 100px; }
 .form-submit { width: 100%; background: var(--accent); color: var(--navy); border: none; padding: 16px; border-radius: 2px; font-size: 0.9rem; font-weight: 600; letter-spacing: 1px; cursor: pointer; font-family: 'DM Sans', sans-serif; text-transform: uppercase; transition: all 0.3s; margin-top: 8px; }
 .form-submit:hover { background: var(--accent-light); transform: translateY(-2px); box-shadow: 0 8px 30px rgba(200,169,110,0.3); }
 
+/* CALL BUTTON */
+.call-btn {
+  display: inline-flex; align-items: center; gap: 10px;
+  background: rgba(76, 175, 80, 0.12); border: 1.5px solid rgba(76, 175, 80, 0.35);
+  color: #81c784; padding: 12px 18px; border-radius: 4px;
+  text-decoration: none; font-weight: 600; font-size: 1rem;
+  transition: all 0.25s; letter-spacing: 0.3px; margin: 4px 0 16px;
+}
+.call-btn svg { width: 18px; height: 18px; flex-shrink: 0; }
+.call-btn:hover { background: rgba(76, 175, 80, 0.22); border-color: rgba(76, 175, 80, 0.65); color: #a5d6a7; transform: translateY(-1px); }
+
+/* STORE HOURS */
+.store-hours { background: rgba(200,169,110,0.06); border: 1px solid var(--border); border-radius: 4px; padding: 14px 18px; margin-bottom: 16px; }
+.hours-title { color: var(--accent); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 10px; }
+.hours-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; border-bottom: 1px solid rgba(200,169,110,0.08); font-size: 0.88rem; color: rgba(245,242,237,0.7); }
+.hours-row:last-child { border-bottom: none; }
+.hours-closed { color: rgba(245,242,237,0.35); font-style: italic; }
+
 /* FOOTER */
-footer { background: #07111c; padding: 40px 80px; display: flex; align-items: center; justify-content: space-between; border-top: 1px solid var(--border); }
-.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.4rem; color: var(--white); font-weight: 700; }
+footer { background: #07111c; border-top: 1px solid var(--border); }
+.footer-main { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 48px; padding: 52px 80px 36px; }
+.footer-brand { display: flex; flex-direction: column; gap: 14px; }
+.footer-logo { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; color: var(--white); font-weight: 700; }
 .footer-logo span { color: var(--accent); }
-.footer-copy { color: rgba(245,242,237,0.3); font-size: 0.82rem; }
-.footer-links { display: flex; gap: 24px; }
-.footer-fb-btn { background: #1877f2; color: #fff !important; padding: 10px 20px; border-radius: 4px; text-decoration: none; font-weight: 600; display: flex; align-items: center; gap: 8px; transition: opacity 0.3s; }
-.footer-fb-btn:hover { opacity: 0.9; }
+.footer-tagline { color: rgba(245,242,237,0.4); font-size: 0.85rem; line-height: 1.6; }
+.footer-col-title { color: var(--accent); font-size: 0.72rem; letter-spacing: 2px; text-transform: uppercase; font-weight: 600; margin-bottom: 14px; }
+.footer-contacts-col { display: flex; flex-direction: column; gap: 4px; }
+.footer-phone-link { display: flex; align-items: center; gap: 8px; color: rgba(245,242,237,0.65); text-decoration: none; font-size: 0.88rem; padding: 6px 0; transition: color 0.25s; }
+.footer-phone-link svg { flex-shrink: 0; color: #81c784; }
+.footer-phone-link:hover { color: var(--white); }
+.footer-social-col { display: flex; flex-direction: column; }
+.footer-fb-btn { background: #1877f2; color: #fff !important; padding: 10px 18px; border-radius: 4px; text-decoration: none; font-weight: 600; display: inline-flex; align-items: center; gap: 8px; transition: opacity 0.3s; font-size: 0.9rem; width: fit-content; }
+.footer-fb-btn:hover { opacity: 0.85; }
+.footer-bottom { border-top: 1px solid rgba(200,169,110,0.1); padding: 20px 80px; display: flex; justify-content: center; }
+.footer-copy { color: rgba(245,242,237,0.25); font-size: 0.8rem; }
 
 /* SCROLL ANIMATIONS */
 .reveal { opacity: 0; transform: translateY(40px); transition: opacity 0.8s ease, transform 0.8s ease; }
@@ -295,7 +322,9 @@ footer { background: #07111c; padding: 40px 80px; display: flex; align-items: ce
   .contact { grid-template-columns: 1fr; }
   .contact-left, .contact-right { padding: 60px 24px; border: none; }
   .form-row { grid-template-columns: 1fr; }
-  footer { flex-direction: column; gap: 24px; text-align: center; }
+  .footer-main { grid-template-columns: 1fr; gap: 32px; padding: 40px 24px 28px; }
+  .footer-bottom { padding: 16px 24px; }
+  .footer-fb-btn { width: 100%; justify-content: center; }
   .benefits-bar { padding: 20px; gap: 20px; }
   .hero-stats { gap: 24px; flex-wrap: wrap; }
 }
