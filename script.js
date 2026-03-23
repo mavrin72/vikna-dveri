@@ -78,10 +78,11 @@ function calc() {
   const qty = qtyEl ? parseInt(qtyEl.value) || 1 : 1;
 
   const area = (w / 100) * (h / 100);
-  const areaFactor = Math.max(0.7, Math.min(2.5, area));
+  const REFERENCE_AREA = (120 / 100) * (140 / 100); // дефолтний розмір 120×140 = 1.68m²
+  const areaFactor = Math.max(0.5, Math.min(2.5, area / REFERENCE_AREA));
 
   let base = basePrices[currentType] * profileMult[currentProfile] * glassMult[currentGlass] * areaFactor;
-  base = Math.round(base / 50) * 50;
+  base = Math.max(basePrices[currentType], Math.round(base / 50) * 50);
 
   let options = 0;
   
