@@ -73,12 +73,13 @@
   </div>
 </section>
 
+<!-- ОНОВЛЕНИЙ БЛОК ПЕРЕВАГ -->
 <div class="benefits-bar">
   <div class="benefit-item"><div class="benefit-icon">🛡</div><span>Гарантія 5-10 років</span></div>
   <div class="benefit-item"><div class="benefit-icon">🚀</div><span>Виготовлення від 3 днів</span></div>
   <div class="benefit-item"><div class="benefit-icon">🔧</div><span>Монтаж від 800 грн/м²</span></div>
   <div class="benefit-item"><div class="benefit-icon">🤝</div><span>Офіційний дилер</span></div>
-  <div class="benefit-item"><div class="benefit-icon">💳</div><span>Оплата через банк</span></div>
+  <div class="benefit-item"><div class="benefit-icon">💳</div><span>Можлива розстрочка / оплата частинами</span></div>
 </div>
 
 <section class="products" id="products">
@@ -282,7 +283,7 @@
     <div class="step">
       <div class="step-num">02</div>
       <h4>Оформлення замовлення</h4>
-      <p>Фіксуємо вартість, терміни та деталі у договорі. Можлива оплата частинами через банк.</p>
+      <p>Фіксуємо вартість, терміни та деталі у договорі. Можлива розстрочка або оплата частинами.</p>
       <div class="step-arrow">→</div>
     </div>
     <div class="step">
@@ -453,18 +454,15 @@
       <div class="form-row">
         <div class="form-group">
           <label>Ваше ім'я</label>
-          <!-- ЗВЕРНИ УВАГУ: Я додав id="clientName", щоб форма працювала! -->
           <input type="text" id="clientName" placeholder="Ваше ім'я" required>
         </div>
         <div class="form-group">
           <label>Номер телефону</label>
-          <!-- Додано id="clientPhone" -->
           <input type="tel" id="clientPhone" placeholder="+380 (XX) XXX-XX-XX" required>
         </div>
       </div>
       <div class="form-group">
         <label>Тип продукту</label>
-        <!-- Додано id="clientProduct" -->
         <select id="clientProduct">
           <option value="">Оберіть тип...</option>
           <option value="Металопластикові вікна">Металопластикові вікна</option>
@@ -476,7 +474,6 @@
       </div>
       <div class="form-group">
         <label>Коментар (необов'язково)</label>
-        <!-- Додано id="clientComment" -->
         <textarea id="clientComment" placeholder="Опишіть ваш запит..."></textarea>
       </div>
       <button class="form-submit" onclick="handleSubmit(this)">Надіслати заявку</button>
