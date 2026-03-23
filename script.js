@@ -16,6 +16,14 @@ window.addEventListener('scroll', () => {
   nav.style.padding = window.scrollY > 60 ? '14px 60px' : '20px 60px';
 });
 
+// Додаємо автозаповнення +380 для зручності
+const phoneInput = document.getElementById('clientPhone');
+if (phoneInput) {
+  phoneInput.addEventListener('focus', function() {
+    if (this.value === '') this.value = '+380';
+  });
+}
+
 // CALCULATOR LOGIC
 let currentType = 'window';
 let currentProfile = 'standard';
