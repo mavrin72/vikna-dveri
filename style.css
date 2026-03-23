@@ -133,7 +133,7 @@ section { padding: 100px 80px; }
 .product-price { color: var(--muted); font-size: 0.82rem; letter-spacing: 1px; text-transform: uppercase; }
 .product-price strong { color: var(--navy); display: block; margin-top: 4px; font-family: 'Cormorant Garamond', serif; font-size: 1.8rem; }
 
-/* WHY US */
+/* WHY US & REVIEWS */
 .why-us { background: var(--navy); display: grid; grid-template-columns: 1fr 1fr; gap: 0; padding: 0; }
 .why-left { padding: 100px 80px; border-right: 1px solid var(--border); }
 .why-left .section-title { color: var(--white); }
@@ -144,16 +144,33 @@ section { padding: 100px 80px; }
 .why-num { font-family: 'Cormorant Garamond', serif; font-size: 2.5rem; color: var(--accent); line-height: 1; font-weight: 300; margin-bottom: 8px; }
 .why-card h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 8px; }
 .why-card p { color: rgba(245,242,237,0.5); font-size: 0.85rem; line-height: 1.6; }
+
 .why-right { padding: 100px 80px; display: flex; flex-direction: column; justify-content: center; }
-.testimonial-list { display: flex; flex-direction: column; gap: 28px; }
+
+/* СТИЛІ ДЛЯ СПИСКУ ВІДГУКІВ ЗІ СКРОЛОМ */
+.testimonial-list { 
+  display: flex; flex-direction: column; gap: 24px; 
+  max-height: 520px; overflow-y: auto; padding-right: 12px;
+}
+.testimonial-list::-webkit-scrollbar { width: 6px; }
+.testimonial-list::-webkit-scrollbar-track { background: rgba(200, 169, 110, 0.05); border-radius: 4px; }
+.testimonial-list::-webkit-scrollbar-thumb { background: rgba(200, 169, 110, 0.3); border-radius: 4px; }
+.testimonial-list::-webkit-scrollbar-thumb:hover { background: rgba(200, 169, 110, 0.6); }
+
 .testimonial { background: var(--glass); border: 1px solid var(--border); padding: 28px; border-radius: 4px; position: relative; }
 .testimonial::before { content: '"'; font-family: 'Cormorant Garamond', serif; font-size: 4rem; color: var(--accent); position: absolute; top: 8px; left: 20px; line-height: 1; opacity: 0.4; }
-.testimonial p { color: rgba(245,242,237,0.75); font-size: 0.92rem; line-height: 1.7; margin-bottom: 16px; }
+.testimonial p { color: rgba(245,242,237,0.75); font-size: 0.92rem; line-height: 1.7; margin-bottom: 16px; position: relative; z-index: 2;}
 .testimonial-author { display: flex; align-items: center; gap: 12px; }
 .author-avatar { width: 36px; height: 36px; border-radius: 50%; background: var(--accent); display: flex; align-items: center; justify-content: center; color: var(--navy); font-weight: 700; font-size: 0.85rem; flex-shrink: 0; }
 .author-name { color: var(--white); font-size: 0.88rem; font-weight: 500; }
 .author-role { color: rgba(245,242,237,0.4); font-size: 0.8rem; }
 .stars { color: var(--accent); letter-spacing: 2px; font-size: 0.85rem; }
+
+/* Блок "Більше відгуків" */
+.google-reviews-note { margin-top: 32px; border-top: 1px solid var(--border); padding-top: 24px; }
+.google-reviews-note p { color: rgba(245,242,237,0.6); font-size: 0.9rem; margin-bottom: 16px; }
+.google-reviews-links { display: flex; gap: 12px; flex-wrap: wrap; }
+.google-reviews-links .btn-outline { padding: 10px 20px; font-size: 0.8rem; border-color: rgba(200, 169, 110, 0.3); }
 
 /* PROCESS */
 .process { background: #f0ede6; }
