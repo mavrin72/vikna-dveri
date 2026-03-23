@@ -95,7 +95,7 @@ function calc() {
   const perUnit = base + options + install;
   const total = perUnit * qty;
 
-  // 2. Безпечно оновлюємо HTML (якщо елемент є на сторінці)
+  // 2. Безпечно оновлюємо HTML
   const priceEl = document.getElementById('resultPrice');
   if (priceEl) priceEl.textContent = fmt(perUnit);
 
