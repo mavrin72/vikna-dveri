@@ -21,9 +21,10 @@ let currentType = 'window';
 let currentProfile = 'standard';
 let currentGlass = 'double';
 
-const basePrices = { window: 3500, door: 6800, balcony: 10500 };
+const basePrices = { window: 3200, door: 9800, balcony: 6500 };
 const profileMult = { standard: 1, comfort: 1.25, premium: 1.6 };
 const glassMult = { double: 1, triple: 1.18, lowe: 1.32 };
+const installPrice = { window: 1200, door: 2200, balcony: 1800 };
 
 function setType(el, val) {
   currentType = val;
@@ -68,9 +69,7 @@ function calc() {
   if (document.getElementById('opt_color').checked) options += Math.round(base * 0.12);
 
   let install = 0;
-  if (document.getElementById('opt_install').checked) {
-      install = Math.max(800, Math.round(area * 800)); // Від 800 грн за метр
-  }
+  if (document.getElementById('opt_install').checked) install = installPrice[currentType];
 
   const perUnit = base + options + install;
   const total = perUnit * qty;
