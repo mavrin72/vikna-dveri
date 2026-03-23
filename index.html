@@ -230,6 +230,22 @@
         </div>
       </div>
       <div class="calc-group">
+        <div class="calc-label">Профіль</div>
+        <div class="calc-tabs" id="profileTabs">
+          <button class="calc-tab active" data-profile="standard" onclick="setProfile(this,'standard')">Стандарт</button>
+          <button class="calc-tab" data-profile="comfort" onclick="setProfile(this,'comfort')">Comfort</button>
+          <button class="calc-tab" data-profile="premium" onclick="setProfile(this,'premium')">Premium</button>
+        </div>
+      </div>
+      <div class="calc-group">
+        <div class="calc-label">Склопакет</div>
+        <div class="calc-tabs" id="glassTabs">
+          <button class="calc-tab active" data-glass="double" onclick="setGlass(this,'double')">2-камерний</button>
+          <button class="calc-tab" data-glass="triple" onclick="setGlass(this,'triple')">3-камерний</button>
+          <button class="calc-tab" data-glass="lowe" onclick="setGlass(this,'lowe')">Low-E</button>
+        </div>
+      </div>
+      <div class="calc-group">
         <div class="calc-label">Розміри (см)</div>
         <div class="calc-dims">
           <div class="dim-field"><label class="dim-label">Ширина</label><div class="dim-control"><button onclick="adjustDim('width',-10)">−</button><input type="number" id="width" value="120" oninput="calc()"><button onclick="adjustDim('width',10)">+</button></div></div>
@@ -238,10 +254,17 @@
         </div>
       </div>
       <div class="calc-group">
+        <div class="calc-label">Кількість: <span id="qtyVal">1</span> шт.</div>
+        <input type="range" id="qty" min="1" max="20" value="1" oninput="document.getElementById('qtyVal').textContent=this.value; calc()" class="calc-slider">
+        <div class="slider-labels"><span>1</span><span>20</span></div>
+      </div>
+      <div class="calc-group">
         <div class="calc-label">Додатково</div>
         <div class="calc-options">
           <label class="calc-option"><input type="checkbox" id="opt_install" onchange="calc()"><span class="opt-check"></span>Монтаж</label>
           <label class="calc-option"><input type="checkbox" id="opt_sill" onchange="calc()"><span class="opt-check"></span>Підвіконня</label>
+          <label class="calc-option"><input type="checkbox" id="opt_mosquito" onchange="calc()"><span class="opt-check"></span>Москітна сітка</label>
+          <label class="calc-option"><input type="checkbox" id="opt_color" onchange="calc()"><span class="opt-check"></span>Колір</label>
         </div>
       </div>
     </div>
@@ -249,8 +272,12 @@
       <div class="result-card">
         <div class="result-label">Вартість від</div>
         <div class="result-price" id="resultPrice">3 500 ₴</div>
+        <div class="result-per" id="resultPer">за 1 шт.</div>
         <div class="result-breakdown" id="breakdown">
-          <div class="breakdown-row"><span>Разом</span><span id="b_total">—</span></div>
+          <div class="breakdown-row"><span>Виріб</span><span id="b_product">—</span></div>
+          <div class="breakdown-row"><span>Монтаж</span><span id="b_install">—</span></div>
+          <div class="breakdown-row"><span>Опції</span><span id="b_options">—</span></div>
+          <div class="breakdown-row total-row"><span>Разом</span><span id="b_total">—</span></div>
         </div>
         <a href="#contact" class="btn-primary" style="display:block; text-align:center; margin-top:24px;">Замовити замір</a>
       </div>
@@ -275,7 +302,7 @@
           
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2535.130026470886!2d30.222299699999994!3d50.550351899999995!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472b31904ba9be5f%3A0x4a981d07361e4e2e!2z0JLRltC60L3QsCDQlNCy0LXRgNGWINCR0YPRh9CwIChCdWNoYSk!5e0!3m2!1suk!2sua!4v1774273264934!5m2!1suk!2sua" class="contact-map-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           
-          <a href="https://share.google/Z1HyhIjjYfmIuHFQo" target="_blank" class="btn-outline" style="width:100%; text-align:center; padding:12px;">🗺 Відкрити маршрут</a>
+          <a href="https://maps.app.goo.gl/hNYfEPi6dvDniEXp9" target="_blank" class="btn-outline" style="width:100%; text-align:center; padding:12px;">🗺 Відкрити маршрут</a>
         </div>
       </div>
 
@@ -290,7 +317,7 @@
           
           <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2530.1552286277642!2d29.930492500000003!3d50.6428082!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x472b3d13b72c31d7%3A0x996adb2c5fe7bea9!2sVikna%20Dveri!5e0!3m2!1sru!2sua!4v1774273222726!5m2!1sru!2sua" class="contact-map-iframe" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
           
-          <a href="https://share.google/csGmHo0S8ngSTSCz0" target="_blank" class="btn-outline" style="width:100%; text-align:center; padding:12px;">🗺 Відкрити маршрут</a>
+          <a href="https://maps.app.goo.gl/zta6qSmTQbyXdxcg9" target="_blank" class="btn-outline" style="width:100%; text-align:center; padding:12px;">🗺 Відкрити маршрут</a>
         </div>
       </div>
     </div>
