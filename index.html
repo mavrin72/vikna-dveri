@@ -3,14 +3,907 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Вікна @ двері — Металопластикові вікна та двері</title>
+<title>Guramovich Windows — Металопластикові вікна та двері</title>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;600;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="style.css">
+<style>
+  :root {
+    --navy: #0d1b2a;
+    --steel: #1b2d40;
+    --accent: #c8a96e;
+    --accent-light: #e8c990;
+    --white: #f5f2ed;
+    --text: #2c3e50;
+    --muted: #6b7d8f;
+    --glass: rgba(200, 169, 110, 0.08);
+    --border: rgba(200, 169, 110, 0.2);
+  }
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--text);
+    overflow-x: hidden;
+  }
+
+  /* NAV */
+  nav {
+    position: fixed; top: 0; width: 100%; z-index: 100;
+    padding: 20px 60px;
+    display: flex; align-items: center; justify-content: space-between;
+    background: rgba(13, 27, 42, 0.92);
+    backdrop-filter: blur(16px);
+    border-bottom: 1px solid var(--border);
+    transition: all 0.3s;
+  }
+
+  .logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; font-weight: 700;
+    color: var(--white);
+    letter-spacing: 1px;
+  }
+
+  .logo span { color: var(--accent); }
+
+  .nav-links { display: flex; gap: 36px; list-style: none; }
+  .nav-links a {
+    color: rgba(245, 242, 237, 0.75);
+    text-decoration: none; font-size: 0.85rem;
+    letter-spacing: 1.5px; text-transform: uppercase;
+    font-weight: 500;
+    transition: color 0.3s;
+  }
+  .nav-links a:hover { color: var(--accent); }
+
+  .nav-cta {
+    background: var(--accent);
+    color: var(--navy) !important;
+    padding: 10px 24px;
+    border-radius: 2px;
+    font-weight: 600 !important;
+    letter-spacing: 1px;
+    transition: background 0.3s !important;
+  }
+  .nav-cta:hover { background: var(--accent-light) !important; }
+
+  /* HERO */
+  .hero {
+    min-height: 100vh;
+    background: var(--navy);
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero-bg-pattern {
+    position: absolute; inset: 0;
+    background-image:
+      linear-gradient(rgba(200,169,110,0.04) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(200,169,110,0.04) 1px, transparent 1px);
+    background-size: 60px 60px;
+    animation: gridMove 20s linear infinite;
+  }
+
+  @keyframes gridMove {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(60px); }
+  }
+
+  .hero-left {
+    display: flex; flex-direction: column; justify-content: center;
+    padding: 140px 60px 80px 80px;
+    position: relative; z-index: 2;
+  }
+
+  .hero-badge {
+    display: inline-flex; align-items: center; gap: 8px;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    padding: 8px 16px; border-radius: 30px;
+    color: var(--accent); font-size: 0.78rem;
+    letter-spacing: 2px; text-transform: uppercase;
+    margin-bottom: 32px;
+    width: fit-content;
+    animation: fadeUp 0.8s ease both;
+  }
+
+  .hero-badge::before {
+    content: ''; width: 6px; height: 6px;
+    background: var(--accent); border-radius: 50%;
+    animation: pulse 2s infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50% { opacity: 0.5; transform: scale(1.4); }
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(3rem, 5vw, 5.5rem);
+    color: var(--white); line-height: 1.05;
+    font-weight: 300; margin-bottom: 28px;
+    animation: fadeUp 0.8s ease 0.15s both;
+  }
+
+  .hero h1 em {
+    font-style: italic; color: var(--accent);
+    display: block;
+  }
+
+  .hero-subtitle {
+    color: rgba(245,242,237,0.6);
+    font-size: 1.05rem; line-height: 1.7;
+    max-width: 420px; margin-bottom: 48px;
+    animation: fadeUp 0.8s ease 0.3s both;
+  }
+
+  .hero-actions {
+    display: flex; gap: 16px; flex-wrap: wrap;
+    animation: fadeUp 0.8s ease 0.45s both;
+  }
+
+  .btn-primary {
+    background: var(--accent);
+    color: var(--navy); border: none;
+    padding: 16px 36px; border-radius: 2px;
+    font-size: 0.9rem; font-weight: 600;
+    letter-spacing: 1px; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-primary:hover {
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 12px 40px rgba(200,169,110,0.4);
+  }
+
+  .btn-outline {
+    background: transparent;
+    color: var(--white); border: 1px solid var(--border);
+    padding: 16px 36px; border-radius: 2px;
+    font-size: 0.9rem; font-weight: 400;
+    letter-spacing: 1px; cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+    transition: all 0.3s;
+    font-family: 'DM Sans', sans-serif;
+  }
+
+  .btn-outline:hover {
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+
+  .hero-stats {
+    display: flex; gap: 40px; margin-top: 60px;
+    animation: fadeUp 0.8s ease 0.6s both;
+  }
+
+  .stat-item { border-left: 1px solid var(--border); padding-left: 20px; }
+  .stat-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; color: var(--accent);
+    line-height: 1; font-weight: 600;
+  }
+  .stat-label {
+    color: rgba(245,242,237,0.5);
+    font-size: 0.8rem; letter-spacing: 1px;
+    text-transform: uppercase; margin-top: 4px;
+  }
+
+  /* HERO RIGHT - window illustration */
+  .hero-right {
+    display: flex; align-items: center; justify-content: center;
+    position: relative; overflow: hidden;
+    animation: fadeIn 1.2s ease 0.3s both;
+  }
+
+  .hero-window-visual {
+    position: relative; width: 380px; height: 480px;
+  }
+
+  .window-frame {
+    position: absolute; inset: 0;
+    border: 3px solid var(--accent);
+    border-radius: 4px;
+    background: linear-gradient(135deg,
+      rgba(200,169,110,0.05) 0%,
+      rgba(200,169,110,0.12) 50%,
+      rgba(200,169,110,0.05) 100%
+    );
+    overflow: hidden;
+  }
+
+  .window-cross-h {
+    position: absolute; top: 50%; left: 0; right: 0;
+    height: 3px; background: var(--accent);
+    transform: translateY(-50%);
+  }
+
+  .window-cross-v {
+    position: absolute; top: 0; bottom: 0; left: 50%;
+    width: 3px; background: var(--accent);
+    transform: translateX(-50%);
+  }
+
+  .window-reflection {
+    position: absolute; top: 10%; left: 10%; bottom: 10%; right: 10%;
+    background: linear-gradient(120deg,
+      transparent 0%,
+      rgba(200,169,110,0.08) 30%,
+      rgba(200,169,110,0.15) 50%,
+      transparent 70%
+    );
+    animation: shimmer 4s ease-in-out infinite;
+  }
+
+  @keyframes shimmer {
+    0%, 100% { opacity: 0.4; transform: translateX(-20px); }
+    50% { opacity: 1; transform: translateX(20px); }
+  }
+
+  .window-outer {
+    position: absolute; inset: -20px;
+    border: 15px solid rgba(200,169,110,0.15);
+    border-radius: 8px;
+  }
+
+  .window-glow {
+    position: absolute; inset: -40px;
+    background: radial-gradient(ellipse, rgba(200,169,110,0.1) 0%, transparent 70%);
+    animation: glow 3s ease-in-out infinite;
+  }
+
+  @keyframes glow {
+    0%, 100% { opacity: 0.5; }
+    50% { opacity: 1; }
+  }
+
+  .floating-tag {
+    position: absolute; background: var(--navy);
+    border: 1px solid var(--border);
+    padding: 12px 18px; border-radius: 4px;
+    color: var(--white); font-size: 0.82rem;
+  }
+
+  .tag-1 { top: 60px; right: -30px; }
+  .tag-2 { bottom: 80px; left: -40px; }
+  .tag-1 strong, .tag-2 strong { color: var(--accent); display: block; font-size: 1rem; }
+
+  @keyframes fadeUp {
+    from { opacity: 0; transform: translateY(30px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+  }
+
+  /* BENEFITS BAR */
+  .benefits-bar {
+    background: var(--steel);
+    padding: 24px 80px;
+    display: flex; justify-content: center; gap: 60px;
+    border-bottom: 1px solid var(--border);
+    flex-wrap: wrap;
+  }
+
+  .benefit-item {
+    display: flex; align-items: center; gap: 12px;
+    color: rgba(245,242,237,0.7); font-size: 0.88rem;
+  }
+
+  .benefit-icon {
+    width: 36px; height: 36px;
+    border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 1rem;
+  }
+
+  /* SECTION LAYOUT */
+  section { padding: 100px 80px; }
+
+  .section-label {
+    color: var(--accent); font-size: 0.78rem;
+    letter-spacing: 3px; text-transform: uppercase;
+    margin-bottom: 16px; font-weight: 500;
+  }
+
+  .section-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(2.2rem, 4vw, 3.5rem);
+    color: var(--navy); line-height: 1.1;
+    font-weight: 600; margin-bottom: 20px;
+  }
+
+  .section-sub {
+    color: var(--muted); font-size: 1.05rem;
+    line-height: 1.7; max-width: 520px;
+    margin-bottom: 60px;
+  }
+
+  /* PRODUCTS */
+  .products { background: var(--white); }
+
+  .products-header { text-align: center; }
+  .products-header .section-sub { margin: 0 auto 60px; }
+
+  .products-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2px;
+    background: rgba(0,0,0,0.08);
+    border: 1px solid rgba(0,0,0,0.08);
+  }
+
+  .product-card {
+    background: var(--white);
+    padding: 48px 40px;
+    transition: all 0.4s;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .product-card::before {
+    content: '';
+    position: absolute; top: 0; left: 0; right: 0; height: 3px;
+    background: var(--accent);
+    transform: scaleX(0);
+    transition: transform 0.4s;
+  }
+
+  .product-card:hover::before { transform: scaleX(1); }
+  .product-card:hover { background: #faf9f6; }
+
+  .product-icon {
+    width: 64px; height: 64px;
+    margin-bottom: 24px;
+    position: relative;
+  }
+
+  .product-window-svg {
+    width: 100%; height: 100%;
+  }
+
+  .product-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.6rem; color: var(--navy);
+    margin-bottom: 12px; font-weight: 600;
+  }
+
+  .product-card p {
+    color: var(--muted); line-height: 1.7;
+    font-size: 0.92rem; margin-bottom: 24px;
+  }
+
+  .product-features { list-style: none; margin-bottom: 32px; }
+  .product-features li {
+    padding: 6px 0; color: var(--text);
+    font-size: 0.88rem; display: flex; align-items: center; gap: 10px;
+    border-bottom: 1px solid rgba(0,0,0,0.05);
+  }
+  .product-features li::before {
+    content: '—'; color: var(--accent); font-size: 0.8rem;
+    flex-shrink: 0;
+  }
+
+  .product-price {
+    color: var(--muted); font-size: 0.82rem;
+    letter-spacing: 1px; text-transform: uppercase;
+  }
+  .product-price strong {
+    color: var(--navy); font-size: 1.2rem; display: block; margin-top: 4px;
+    font-family: 'Cormorant Garamond', serif; font-size: 1.8rem;
+  }
+
+  /* WHY US */
+  .why-us {
+    background: var(--navy);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; padding: 0;
+  }
+
+  .why-left {
+    padding: 100px 80px;
+    border-right: 1px solid var(--border);
+  }
+
+  .why-left .section-title { color: var(--white); }
+  .why-left .section-sub { color: rgba(245,242,237,0.6); }
+
+  .why-grid {
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 24px;
+  }
+
+  .why-card {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    padding: 28px; border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .why-card:hover {
+    background: rgba(200,169,110,0.12);
+    border-color: rgba(200,169,110,0.4);
+    transform: translateY(-4px);
+  }
+
+  .why-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 2.5rem; color: var(--accent);
+    line-height: 1; font-weight: 300;
+    margin-bottom: 8px;
+  }
+
+  .why-card h4 { color: var(--white); font-size: 0.95rem; margin-bottom: 8px; }
+  .why-card p { color: rgba(245,242,237,0.5); font-size: 0.85rem; line-height: 1.6; }
+
+  .why-right {
+    padding: 100px 80px;
+    display: flex; flex-direction: column; justify-content: center;
+  }
+
+  .testimonial-list { display: flex; flex-direction: column; gap: 28px; }
+
+  .testimonial {
+    background: var(--glass);
+    border: 1px solid var(--border);
+    padding: 28px; border-radius: 4px;
+    position: relative;
+  }
+
+  .testimonial::before {
+    content: '"';
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; color: var(--accent);
+    position: absolute; top: 8px; left: 20px;
+    line-height: 1; opacity: 0.4;
+  }
+
+  .testimonial p {
+    color: rgba(245,242,237,0.75); font-size: 0.92rem;
+    line-height: 1.7; margin-bottom: 16px;
+  }
+
+  .testimonial-author {
+    display: flex; align-items: center; gap: 12px;
+  }
+
+  .author-avatar {
+    width: 36px; height: 36px; border-radius: 50%;
+    background: var(--accent); display: flex; align-items: center;
+    justify-content: center; color: var(--navy); font-weight: 700;
+    font-size: 0.85rem; flex-shrink: 0;
+  }
+
+  .author-name { color: var(--white); font-size: 0.88rem; font-weight: 500; }
+  .author-role { color: rgba(245,242,237,0.4); font-size: 0.8rem; }
+
+  .stars { color: var(--accent); letter-spacing: 2px; font-size: 0.85rem; }
+
+  /* PROCESS */
+  .process { background: #f0ede6; }
+
+  .process-steps {
+    display: grid; grid-template-columns: repeat(4, 1fr);
+    gap: 0; margin-top: 60px;
+    border: 1px solid rgba(0,0,0,0.1);
+  }
+
+  .step {
+    padding: 48px 36px;
+    border-right: 1px solid rgba(0,0,0,0.1);
+    position: relative;
+    transition: background 0.3s;
+  }
+
+  .step:last-child { border-right: none; }
+  .step:hover { background: rgba(200,169,110,0.08); }
+
+  .step-num {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 4rem; color: rgba(200,169,110,0.2);
+    line-height: 1; margin-bottom: 20px;
+    font-weight: 700;
+  }
+
+  .step h4 {
+    color: var(--navy); font-size: 1.05rem;
+    margin-bottom: 12px; font-weight: 600;
+  }
+
+  .step p { color: var(--muted); font-size: 0.88rem; line-height: 1.6; }
+
+  .step-arrow {
+    position: absolute; right: -14px; top: 50%;
+    transform: translateY(-50%);
+    width: 28px; height: 28px;
+    background: var(--accent); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--navy); font-size: 0.8rem; z-index: 2;
+  }
+
+  .step:last-child .step-arrow { display: none; }
+
+  /* CONTACT */
+  .contact {
+    background: var(--navy);
+    display: grid; grid-template-columns: 1fr 1fr;
+    gap: 0; padding: 0;
+  }
+
+  .contact-left {
+    padding: 100px 80px;
+    border-right: 1px solid var(--border);
+  }
+
+  .contact-left .section-title { color: var(--white); }
+  .contact-left .section-sub { color: rgba(245,242,237,0.6); }
+
+  .contact-info { display: flex; flex-direction: column; gap: 24px; margin-top: 48px; }
+
+  .contact-item {
+    display: flex; align-items: flex-start; gap: 16px;
+    padding: 20px; background: var(--glass);
+    border: 1px solid var(--border); border-radius: 4px;
+    transition: all 0.3s;
+  }
+
+  .contact-item:hover { border-color: rgba(200,169,110,0.4); }
+
+  .contact-item-icon {
+    width: 42px; height: 42px; flex-shrink: 0;
+    border: 1px solid var(--border); border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    color: var(--accent); font-size: 1.1rem;
+  }
+
+  .contact-item-text { flex: 1; }
+  .contact-item-label {
+    color: rgba(245,242,237,0.4); font-size: 0.75rem;
+    letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 4px;
+  }
+  .contact-item-value { color: var(--white); font-size: 1rem; }
+
+  .contact-right { padding: 100px 80px; }
+
+  .form-group { margin-bottom: 20px; }
+
+  .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+
+  label {
+    display: block; color: rgba(245,242,237,0.5);
+    font-size: 0.78rem; letter-spacing: 1.5px;
+    text-transform: uppercase; margin-bottom: 8px;
+  }
+
+  input, textarea, select {
+    width: 100%;
+    background: var(--glass);
+    border: 1px solid var(--border);
+    color: var(--white); padding: 14px 16px;
+    border-radius: 2px; font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem; outline: none;
+    transition: all 0.3s;
+  }
+
+  input::placeholder, textarea::placeholder { color: rgba(245,242,237,0.25); }
+
+  input:focus, textarea:focus, select:focus {
+    border-color: var(--accent);
+    background: rgba(200,169,110,0.08);
+  }
+
+  select option { background: var(--steel); }
+
+  textarea { resize: vertical; min-height: 100px; }
+
+  .form-submit {
+    width: 100%;
+    background: var(--accent);
+    color: var(--navy); border: none;
+    padding: 16px; border-radius: 2px;
+    font-size: 0.9rem; font-weight: 600;
+    letter-spacing: 1px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    text-transform: uppercase;
+    transition: all 0.3s; margin-top: 8px;
+  }
+
+  .form-submit:hover {
+    background: var(--accent-light);
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px rgba(200,169,110,0.3);
+  }
+
+  /* FOOTER */
+  footer {
+    background: #07111c;
+    padding: 40px 80px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-top: 1px solid var(--border);
+  }
+
+  .footer-logo {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.4rem; color: var(--white);
+    font-weight: 700;
+  }
+
+  .footer-logo span { color: var(--accent); }
+
+  .footer-copy {
+    color: rgba(245,242,237,0.3); font-size: 0.82rem;
+  }
+
+  .footer-links { display: flex; gap: 24px; }
+  .footer-links a {
+    color: rgba(245,242,237,0.4); text-decoration: none;
+    font-size: 0.82rem; transition: color 0.3s;
+  }
+  .footer-links a:hover { color: var(--accent); }
+
+  /* SCROLL ANIMATIONS */
+  .reveal {
+    opacity: 0; transform: translateY(40px);
+    transition: opacity 0.8s ease, transform 0.8s ease;
+  }
+  .reveal.visible { opacity: 1; transform: translateY(0); }
+
+  /* CALCULATOR */
+  .calculator-section {
+    background: #f0ede6;
+    padding: 100px 80px;
+  }
+
+  .calc-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 420px;
+    gap: 48px;
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .calc-inputs {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+  }
+
+  .calc-group { display: flex; flex-direction: column; gap: 12px; }
+
+  .calc-label {
+    color: var(--navy); font-size: 0.85rem;
+    font-weight: 600; letter-spacing: 1px;
+    text-transform: uppercase;
+  }
+
+  .calc-tabs { display: flex; gap: 8px; flex-wrap: wrap; }
+
+  .calc-tab {
+    background: white;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    color: var(--text); padding: 10px 20px;
+    border-radius: 2px; cursor: pointer;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.88rem; font-weight: 500;
+    transition: all 0.25s;
+  }
+
+  .calc-tab:hover { border-color: var(--accent); color: var(--navy); }
+  .calc-tab.active {
+    background: var(--navy);
+    border-color: var(--navy);
+    color: var(--white);
+  }
+
+  .calc-dims { display: flex; align-items: center; gap: 16px; }
+
+  .dim-field { flex: 1; display: flex; flex-direction: column; gap: 8px; }
+  .dim-label { color: var(--muted); font-size: 0.78rem; letter-spacing: 1px; text-transform: uppercase; }
+
+  .dim-control {
+    display: flex; align-items: center;
+    border: 1.5px solid rgba(0,0,0,0.12);
+    border-radius: 2px; overflow: hidden;
+    background: white;
+  }
+
+  .dim-control button {
+    background: none; border: none;
+    width: 40px; height: 44px;
+    font-size: 1.2rem; cursor: pointer;
+    color: var(--navy); transition: background 0.2s;
+    font-weight: 300;
+  }
+
+  .dim-control button:hover { background: rgba(200,169,110,0.15); }
+
+  .dim-control input {
+    flex: 1; border: none;
+    text-align: center; font-size: 1rem;
+    font-family: 'DM Sans', sans-serif;
+    color: var(--navy); font-weight: 500;
+    background: white; padding: 0;
+    width: 60px;
+  }
+
+  .dim-control input:focus { outline: none; }
+
+  .dim-x { color: var(--muted); font-size: 1.2rem; font-weight: 300; padding-top: 24px; }
+
+  .calc-slider {
+    -webkit-appearance: none;
+    width: 100%; height: 4px;
+    background: rgba(0,0,0,0.12);
+    border-radius: 2px; outline: none;
+    cursor: pointer;
+  }
+
+  .calc-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    width: 20px; height: 20px;
+    border-radius: 50%;
+    background: var(--navy);
+    border: 3px solid var(--accent);
+    cursor: pointer;
+  }
+
+  .slider-labels {
+    display: flex; justify-content: space-between;
+    color: var(--muted); font-size: 0.78rem;
+    margin-top: 4px;
+  }
+
+  .calc-options { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+
+  .calc-option {
+    display: flex; align-items: center; gap: 10px;
+    cursor: pointer; padding: 12px 14px;
+    border: 1.5px solid rgba(0,0,0,0.1);
+    border-radius: 2px; background: white;
+    font-size: 0.88rem; color: var(--text);
+    transition: all 0.25s; user-select: none;
+  }
+
+  .calc-option:hover { border-color: var(--accent); }
+  .calc-option input { display: none; }
+
+  .opt-check {
+    width: 18px; height: 18px; flex-shrink: 0;
+    border: 2px solid rgba(0,0,0,0.2);
+    border-radius: 2px; background: white;
+    transition: all 0.2s;
+    display: flex; align-items: center; justify-content: center;
+  }
+
+  .calc-option input:checked ~ .opt-check {
+    background: var(--navy);
+    border-color: var(--navy);
+  }
+
+  .calc-option input:checked ~ .opt-check::after {
+    content: '✓'; color: var(--accent);
+    font-size: 0.75rem; font-weight: 700;
+  }
+
+  .calc-option input:checked + .opt-check + span,
+  .calc-option:has(input:checked) {
+    color: var(--navy); font-weight: 500;
+    border-color: var(--navy);
+  }
+
+  /* RESULT CARD */
+  .calc-result { position: sticky; top: 100px; height: fit-content; }
+
+  .result-card {
+    background: var(--navy);
+    border: 1px solid var(--border);
+    padding: 40px 36px;
+    border-radius: 4px;
+  }
+
+  .result-label {
+    color: rgba(245,242,237,0.5);
+    font-size: 0.78rem; letter-spacing: 2px;
+    text-transform: uppercase; margin-bottom: 12px;
+  }
+
+  .result-price {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 3.5rem; color: var(--accent);
+    line-height: 1; font-weight: 600;
+    margin-bottom: 4px;
+    transition: all 0.3s;
+  }
+
+  .result-per { color: rgba(245,242,237,0.4); font-size: 0.82rem; margin-bottom: 28px; }
+
+  .result-breakdown {
+    border-top: 1px solid var(--border);
+    padding-top: 20px; margin-bottom: 20px;
+    display: flex; flex-direction: column; gap: 10px;
+  }
+
+  .breakdown-row {
+    display: flex; justify-content: space-between;
+    color: rgba(245,242,237,0.55); font-size: 0.88rem;
+  }
+
+  .breakdown-row span:last-child { color: var(--white); font-weight: 500; }
+
+  .total-row {
+    border-top: 1px solid var(--border);
+    padding-top: 10px; margin-top: 4px;
+    color: var(--white) !important; font-weight: 600;
+  }
+
+  .total-row span { color: var(--white) !important; font-size: 1rem; }
+  .total-row span:last-child { color: var(--accent) !important; font-size: 1.1rem; }
+
+  .result-note {
+    background: rgba(200,169,110,0.1);
+    border: 1px solid var(--border);
+    padding: 10px 14px; border-radius: 2px;
+    color: rgba(245,242,237,0.6); font-size: 0.82rem;
+    margin-bottom: 4px;
+  }
+
+  .result-badge {
+    display: flex; align-items: center; gap: 8px;
+    color: rgba(245,242,237,0.35); font-size: 0.78rem;
+    margin-top: 16px; text-align: center;
+    justify-content: center;
+  }
+
+  @media (max-width: 768px) {
+    .calculator-section { padding: 60px 24px; }
+    .calc-wrapper { grid-template-columns: 1fr; }
+    .calc-result { position: static; }
+    .calc-options { grid-template-columns: 1fr; }
+    .calc-dims { flex-direction: column; }
+    .dim-x { display: none; }
+  }
+
+  @media (max-width: 768px) {
+    nav { padding: 16px 24px; }
+    .nav-links { display: none; }
+    .hero { grid-template-columns: 1fr; }
+    .hero-right { display: none; }
+    .hero-left { padding: 120px 24px 60px; }
+    section { padding: 60px 24px; }
+    .products-grid { grid-template-columns: 1fr; }
+    .why-us { grid-template-columns: 1fr; }
+    .why-left, .why-right { padding: 60px 24px; border: none; }
+    .why-grid { grid-template-columns: 1fr; }
+    .process-steps { grid-template-columns: 1fr; }
+    .step { border-right: none; border-bottom: 1px solid rgba(0,0,0,0.1); }
+    .step-arrow { display: none; }
+    .contact { grid-template-columns: 1fr; }
+    .contact-left, .contact-right { padding: 60px 24px; border: none; }
+    .form-row { grid-template-columns: 1fr; }
+    footer { flex-direction: column; gap: 24px; text-align: center; }
+    .benefits-bar { padding: 20px; gap: 20px; }
+    .hero-stats { gap: 24px; flex-wrap: wrap; }
+  }
+</style>
 </head>
 <body>
 
 <nav>
-  <div class="logo">Вікна @<span> двері</span></div>
+  <div class="logo">Guramovich<span> Windows</span></div>
   <ul class="nav-links">
     <li><a href="#products">Продукція</a></li>
     <li><a href="#why-us">Про нас</a></li>
@@ -22,31 +915,36 @@
 
 <section class="hero" id="home">
   <div class="hero-bg-pattern"></div>
+
   <div class="hero-left">
-    <div class="hero-badge">Буча та Бородянка · Київська область</div>
+    <div class="hero-badge">Буча · Київська область</div>
+
     <h1>
       Вікна і двері
       <em>преміум якості</em>
     </h1>
+
     <p class="hero-subtitle">
-      Металопластикові конструкції з надійними профілями для вашого дому.
-      Тепло, тихо, надійно. Професійний монтаж та великий асортимент.
+      Металопластикові конструкції з European профілями для вашого дому.
+      Тепло, тихо, надійно — гарантія 10 років.
     </p>
+
     <div class="hero-actions">
       <a href="#contact" class="btn-primary">Отримати розрахунок</a>
       <a href="#products" class="btn-outline">Переглянути каталог</a>
     </div>
+
     <div class="hero-stats">
       <div class="stat-item">
-        <div class="stat-num">4</div>
-        <div class="stat-label">Монтажні бригади</div>
+        <div class="stat-num">4800+</div>
+        <div class="stat-label">Виконаних робіт</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">8</div>
+        <div class="stat-num">15</div>
         <div class="stat-label">Років на ринку</div>
       </div>
       <div class="stat-item">
-        <div class="stat-num">5-10</div>
+        <div class="stat-num">10</div>
         <div class="stat-label">Років гарантії</div>
       </div>
     </div>
@@ -61,12 +959,13 @@
         <div class="window-cross-v"></div>
         <div class="window-reflection"></div>
       </div>
+
       <div class="floating-tag tag-1">
-        <strong>Надійні профілі</strong>
-        REHAU / VEKA / WDS / GLASSO...
+        <strong>5-камерний профіль</strong>
+        REHAU / VEKA / STEKO
       </div>
       <div class="floating-tag tag-2">
-        <strong>від 3 500 грн</strong>
+        <strong>від 3 450 грн</strong>
         за стандартне вікно
       </div>
     </div>
@@ -74,18 +973,33 @@
 </section>
 
 <div class="benefits-bar">
-  <div class="benefit-item"><div class="benefit-icon">🛡</div><span>Гарантія 5-10 років</span></div>
-  <div class="benefit-item"><div class="benefit-icon">🚀</div><span>Виготовлення від 3 днів</span></div>
-  <div class="benefit-item"><div class="benefit-icon">🔧</div><span>Монтаж від 800 грн/м²</span></div>
-  <div class="benefit-item"><div class="benefit-icon">🤝</div><span>Офіційний дилер</span></div>
-  <div class="benefit-item"><div class="benefit-icon">💳</div><span>Оплата через банк</span></div>
+  <div class="benefit-item">
+    <div class="benefit-icon">🛡</div>
+    <span>Гарантія 10 років</span>
+  </div>
+  <div class="benefit-item">
+    <div class="benefit-icon">🚀</div>
+    <span>Виготовлення від 5 днів</span>
+  </div>
+  <div class="benefit-item">
+    <div class="benefit-icon">🔧</div>
+    <span>Монтаж під ключ</span>
+  </div>
+  <div class="benefit-item">
+    <div class="benefit-icon">📐</div>
+    <span>Безкоштовний замір</span>
+  </div>
+  <div class="benefit-item">
+    <div class="benefit-icon">💳</div>
+    <span>Оплата на виплат</span>
+  </div>
 </div>
 
 <section class="products" id="products">
   <div class="products-header reveal">
     <div class="section-label">Наша продукція</div>
-    <h2 class="section-title">Величезний асортимент</h2>
-    <p class="section-sub">Від стандартних вікон до складних арочних та трапецієподібних конструкцій. Працюємо з найкращими виробниками.</p>
+    <h2 class="section-title">Вибір для кожного дому</h2>
+    <p class="section-sub">Від стандартних вікон до складних арочних конструкцій — виготовляємо індивідуально під ваші розміри</p>
   </div>
 
   <div class="products-grid reveal">
@@ -102,14 +1016,16 @@
         </svg>
       </div>
       <h3>Металопластикові вікна</h3>
-      <p>Глухі, поворотно-відкидні, арочні та трапеції. Профілі: REHAU, VEKA, WDS, GLASSO, SALAMANDER, VIKNAROFF.</p>
+      <p>Класичні двостулкові та трьохстулкові вікна з профілями REHAU, VEKA та STEKO. Відмінна тепло- та шумоізоляція.</p>
       <ul class="product-features">
-        <li>Фурнітура: Maco, Siegenia, Axor</li>
-        <li>Будь-яка конфігурація та розмір</li>
-        <li>Великий вибір ламінації</li>
-        <li>Якісна тепло- та шумоізоляція</li>
+        <li>5- та 6-камерний профіль</li>
+        <li>Двокамерний та трикамерний склопакет</li>
+        <li>Energy-ефективний Low-E склопакет</li>
+        <li>Будь-які кольори та декори</li>
       </ul>
-      <div class="product-price">Ціна <strong>від 3 500 грн</strong></div>
+      <div class="product-price">
+        Ціна від <strong>від 3 450 грн</strong>
+      </div>
     </div>
 
     <div class="product-card">
@@ -124,14 +1040,16 @@
         </svg>
       </div>
       <h3>Вхідні двері</h3>
-      <p>Надійні дверні системи для приватних будинків та квартир. Захист від тепловтрат та взлому.</p>
+      <p>Металопластикові вхідні двері з надійними замками та сучасним дизайном. Захист від зламу та взлому.</p>
       <ul class="product-features">
-        <li>Міцний профіль та посилене армування</li>
+        <li>Клас захисту RC2 / RC3</li>
         <li>Ущільнення по всьому периметру</li>
-        <li>Декоративне скло та вставки</li>
-        <li>Надійні замки та петлі</li>
+        <li>Декоративне скло та ковані вставки</li>
+        <li>Регулювання притвору та замків</li>
       </ul>
-      <div class="product-price">Ціна <strong>від 6 800 грн</strong></div>
+      <div class="product-price">
+        Ціна від <strong>від 12 900 грн</strong>
+      </div>
     </div>
 
     <div class="product-card">
@@ -145,14 +1063,16 @@
         </svg>
       </div>
       <h3>Балконні блоки</h3>
-      <p>Комплексні рішення для скління виходу на балкон або лоджію. Підбір конфігурації під ваші потреби.</p>
+      <p>Балконні двері зі склінням та глухою частиною. Ідеальне рішення для виходу на балкон або лоджію.</p>
       <ul class="product-features">
-        <li>Глухі або функціональні вікна</li>
-        <li>Енергозберігаючі склопакети</li>
-        <li>Надійна робота фурнітури</li>
-        <li>Захист від протягів</li>
+        <li>Системи з порогом та безпорогові</li>
+        <li>З'єднання з балконним склінням</li>
+        <li>Теплий та холодний монтаж</li>
+        <li>Захист від конденсату</li>
       </ul>
-      <div class="product-price">Ціна <strong>від 10 500 грн</strong></div>
+      <div class="product-price">
+        Ціна від <strong>від 7 800 грн</strong>
+      </div>
     </div>
   </div>
 </section>
@@ -161,41 +1081,67 @@
   <div class="why-left">
     <div class="section-label reveal">Чому обирають нас</div>
     <h2 class="section-title reveal">Якість, перевірена<br>часом і клієнтами</h2>
-    <p class="section-sub reveal">Ми пропонуємо більший асортимент, якісніший товар та вищий рівень професіоналізму.</p>
+    <p class="section-sub reveal">Ми не просто продаємо вікна — ми забезпечуємо комфорт у вашому домі на роки вперед</p>
+
     <div class="why-grid reveal">
       <div class="why-card">
         <div class="why-num">01</div>
-        <h4>Офіційний дилер</h4>
-        <p>Співпрацюємо з провідними заводами, пропонуємо найширший асортимент оригінальних профілів та фурнітури.</p>
+        <h4>Власне виробництво</h4>
+        <p>Виготовляємо на власному обладнанні — контроль якості на кожному етапі</p>
       </div>
       <div class="why-card">
         <div class="why-num">02</div>
-        <h4>Надійна фурнітура</h4>
-        <p>Використовуємо лише перевірені часом механізми Maco, Siegenia, Axor для довговічної роботи.</p>
+        <h4>Сертифікована продукція</h4>
+        <p>Всі профілі та фурнітура мають European сертифікати якості</p>
       </div>
       <div class="why-card">
         <div class="why-num">03</div>
-        <h4>Професійний монтаж</h4>
-        <p>4 власні монтажні бригади. Встановлення одного вікна займає всього 1,5–2 години.</p>
+        <h4>Досвідчені майстри</h4>
+        <p>Монтажники з 8+ роками досвіду — акуратно, без пошкоджень</p>
       </div>
       <div class="why-card">
         <div class="why-num">04</div>
-        <h4>Сервіс та гарантія</h4>
-        <p>Від 5 до 10 років гарантії на конструкції, 1 рік на монтаж. Забезпечуємо післягарантійне обслуговування.</p>
+        <h4>Прозоре ціноутворення</h4>
+        <p>Фіксована ціна в договорі, жодних прихованих доплат</p>
       </div>
     </div>
   </div>
 
   <div class="why-right reveal">
     <div class="section-label" style="color: var(--accent); margin-bottom: 32px;">Відгуки клієнтів</div>
+
     <div class="testimonial-list">
       <div class="testimonial">
-        <p>Шукайте більше відгуків про нашу роботу, якість монтажу та рівень сервісу на нашій офіційній сторінці у Google. Ми пишаємося кожним задоволеним клієнтом!</p>
+        <p>Замовляв вікна для нової квартири — три вікна та балконний блок. Якість чудова, монтажники прийшли вчасно і зробили все чисто. Окремо дякую замірнику, який порадив оптимальну конфігурацію.</p>
         <div class="testimonial-author">
-          <div class="author-avatar">G</div>
+          <div class="author-avatar">МК</div>
           <div>
-            <div class="author-name">Відгуки в Google</div>
-            <div class="author-role">Реальні клієнти</div>
+            <div class="author-name">Михайло К.</div>
+            <div class="author-role">м. Буча</div>
+          </div>
+          <div class="stars" style="margin-left: auto">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p>Поміняла всі вікна в будинку. Різниця відчутна одразу — вдома тепліше, менше чути вулицю. Прийшли вчасно, все прибрали після себе. Рекомендую!</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">ОС</div>
+          <div>
+            <div class="author-name">Олена С.</div>
+            <div class="author-role">м. Бровари</div>
+          </div>
+          <div class="stars" style="margin-left: auto">★★★★★</div>
+        </div>
+      </div>
+
+      <div class="testimonial">
+        <p>Замовили вхідні двері. Дуже задоволені — шумоізоляція зросла вдвічі порівняно зі старими. Менеджер допоміг з вибором, все пояснив.</p>
+        <div class="testimonial-author">
+          <div class="author-avatar">ВГ</div>
+          <div>
+            <div class="author-name">Василь Г.</div>
+            <div class="author-role">м. Вишгород</div>
           </div>
           <div class="stars" style="margin-left: auto">★★★★★</div>
         </div>
@@ -208,31 +1154,32 @@
   <div class="reveal">
     <div class="section-label">Як ми працюємо</div>
     <h2 class="section-title">4 кроки до нових вікон</h2>
-    <p class="section-sub">Від вашого дзвінка до встановлення — швидкий і прозорий процес</p>
+    <p class="section-sub">Від вашого дзвінка до встановлення — простий і прозорий процес</p>
   </div>
+
   <div class="process-steps reveal">
     <div class="step">
       <div class="step-num">01</div>
-      <h4>Консультація та замір</h4>
-      <p>Наші менеджери підберуть найкраще рішення. Замірник приїде у зручний час, щоб зняти точні розміри.</p>
+      <h4>Безкоштовний замір</h4>
+      <p>Наш фахівець приїде у зручний для вас час, зробить точні виміри та проконсультує щодо вибору профілю та фурнітури</p>
       <div class="step-arrow">→</div>
     </div>
     <div class="step">
       <div class="step-num">02</div>
-      <h4>Оформлення замовлення</h4>
-      <p>Фіксуємо вартість, терміни та деталі у договорі. Можлива оплата частинами через банк.</p>
+      <h4>Розрахунок та договір</h4>
+      <p>Готуємо детальний кошторис протягом 1 дня. Фіксована ціна в договорі — жодних сюрпризів</p>
       <div class="step-arrow">→</div>
     </div>
     <div class="step">
       <div class="step-num">03</div>
       <h4>Виготовлення</h4>
-      <p>Термін виготовлення 3-10 робочих днів. Нестандартні конструкції або ламінація займають 3-4 тижні.</p>
+      <p>Виготовляємо вікна на власному виробництві у строк від 5 до 14 робочих днів залежно від складності</p>
       <div class="step-arrow">→</div>
     </div>
     <div class="step">
       <div class="step-num">04</div>
-      <h4>Швидкий монтаж</h4>
-      <p>Встановлення одного вікна триває 1,5-2 години. Вартість від 800 грн/м². Гарантія на монтаж — 1 рік.</p>
+      <h4>Монтаж та здача</h4>
+      <p>Професійна установка з прибиранням після роботи. Видаємо гарантійний талон і пояснюємо правила догляду</p>
     </div>
   </div>
 </section>
@@ -241,11 +1188,12 @@
   <div class="reveal" style="text-align:center; margin-bottom: 60px;">
     <div class="section-label">Онлайн калькулятор</div>
     <h2 class="section-title">Розрахуйте вартість за хвилину</h2>
-    <p class="section-sub" style="margin: 0 auto;">Вкажіть параметри — і ми покажемо орієнтовну ціну. Точний розрахунок надає наш менеджер.</p>
+    <p class="section-sub" style="margin: 0 auto;">Вкажіть параметри — і ми покажемо орієнтовну ціну. Точний розрахунок надає наш менеджер після заміру.</p>
   </div>
 
   <div class="calc-wrapper reveal">
     <div class="calc-inputs">
+
       <div class="calc-group">
         <div class="calc-label">Тип виробу</div>
         <div class="calc-tabs" id="typeTabs">
@@ -254,6 +1202,7 @@
           <button class="calc-tab" data-type="balcony" onclick="setType(this,'balcony')">🏗 Балкон. блок</button>
         </div>
       </div>
+
       <div class="calc-group">
         <div class="calc-label">Профіль</div>
         <div class="calc-tabs" id="profileTabs">
@@ -262,14 +1211,16 @@
           <button class="calc-tab" data-profile="premium" onclick="setProfile(this,'premium')">Premium</button>
         </div>
       </div>
+
       <div class="calc-group">
         <div class="calc-label">Склопакет</div>
         <div class="calc-tabs" id="glassTabs">
           <button class="calc-tab active" data-glass="double" onclick="setGlass(this,'double')">2-камерний</button>
           <button class="calc-tab" data-glass="triple" onclick="setGlass(this,'triple')">3-камерний</button>
-          <button class="calc-tab" data-glass="lowe" onclick="setGlass(this,'lowe')">Енергозберігаючий</button>
+          <button class="calc-tab" data-glass="lowe" onclick="setGlass(this,'lowe')">Low-E</button>
         </div>
       </div>
+
       <div class="calc-group">
         <div class="calc-label">Розміри (см)</div>
         <div class="calc-dims">
@@ -292,18 +1243,20 @@
           </div>
         </div>
       </div>
+
       <div class="calc-group">
         <div class="calc-label">Кількість: <span id="qtyVal">1</span> шт.</div>
         <input type="range" id="qty" min="1" max="20" value="1" oninput="document.getElementById('qtyVal').textContent=this.value; calc()" class="calc-slider">
         <div class="slider-labels"><span>1</span><span>20</span></div>
       </div>
+
       <div class="calc-group">
         <div class="calc-label">Додаткові опції</div>
         <div class="calc-options">
           <label class="calc-option">
             <input type="checkbox" id="opt_install" onchange="calc()">
             <span class="opt-check"></span>
-            Монтаж (від 800 грн/м²)
+            Монтаж під ключ
           </label>
           <label class="calc-option">
             <input type="checkbox" id="opt_sill" onchange="calc()">
@@ -327,17 +1280,35 @@
     <div class="calc-result">
       <div class="result-card">
         <div class="result-label">Орієнтовна вартість</div>
-        <div class="result-price" id="resultPrice">3 500 ₴</div>
+        <div class="result-price" id="resultPrice">14 280 ₴</div>
         <div class="result-per" id="resultPer">за 1 шт.</div>
 
         <div class="result-breakdown" id="breakdown">
-          <div class="breakdown-row"><span>Виріб</span><span id="b_product">—</span></div>
-          <div class="breakdown-row"><span>Монтаж</span><span id="b_install">—</span></div>
-          <div class="breakdown-row"><span>Опції</span><span id="b_options">—</span></div>
-          <div class="breakdown-row total-row"><span>Разом</span><span id="b_total">—</span></div>
+          <div class="breakdown-row">
+            <span>Виріб</span><span id="b_product">—</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Монтаж</span><span id="b_install">—</span>
+          </div>
+          <div class="breakdown-row">
+            <span>Опції</span><span id="b_options">—</span>
+          </div>
+          <div class="breakdown-row total-row">
+            <span>Разом</span><span id="b_total">—</span>
+          </div>
         </div>
-        <div class="result-note">⚡ Точна ціна після консультації менеджера</div>
-        <a href="#contact" class="btn-primary" style="display:block; text-align:center; margin-top:24px;">Замовити дзвінок</a>
+
+        <div class="result-note">
+          ⚡ Точна ціна після безкоштовного заміру
+        </div>
+
+        <a href="#contact" class="btn-primary" style="display:block; text-align:center; margin-top:24px;">
+          Замовити замір
+        </a>
+
+        <div class="result-badge">
+          <span>🛡</span> Гарантія збереження ціни після підписання договору
+        </div>
       </div>
     </div>
   </div>
@@ -346,78 +1317,247 @@
 <div class="contact" id="contact">
   <div class="contact-left">
     <div class="section-label reveal">Зв'яжіться з нами</div>
-    <h2 class="section-title reveal">Отримайте<br>безкоштовну консультацію</h2>
-    <p class="section-sub reveal">Залиште заявку — ми зателефонуємо та відповімо на всі питання щодо вибору вікон та дверей</p>
+    <h2 class="section-title reveal">Отримайте<br>безкоштовний розрахунок</h2>
+    <p class="section-sub reveal">Залиште заявку — наш менеджер зателефонує протягом 30 хвилин і відповість на всі питання</p>
 
     <div class="contact-info reveal">
-      <div class="contact-item">
-        <div class="contact-item-icon">📞</div>
-        <div class="contact-item-text">
-          <div class="contact-item-label">Телефони</div>
-          <div class="contact-item-value">+38 (068) 720-84-80<br>+38 (093) 468-00-51</div>
+      
+      <div class="contact-item" style="flex-direction: column; align-items: flex-start;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="contact-item-icon" style="width: 36px; height: 36px;">📍</div>
+          <div class="contact-item-label" style="margin: 0; color: var(--accent); font-size: 0.85rem; font-weight: 600;">Магазин Буча</div>
+        </div>
+        <div class="contact-item-text" style="width: 100%;">
+          <div class="contact-item-value" style="font-size: 0.95rem; margin-bottom: 8px;">вул. Жовтнева 7 (Левка Лук'яненка)</div>
+          <div class="contact-item-value" style="font-size: 1.1rem; font-weight: 500; margin-bottom: 16px;">
+            📞 <a href="tel:+380687208480" style="color: var(--white); text-decoration: none;">+38 (068) 720-84-80</a>
+          </div>
+          <a href="https://share.google/Z1HyhIjjYfmIuHFQo" target="_blank" class="btn-outline" style="padding: 10px 20px; font-size: 0.85rem; width: 100%; text-align: center; border-color: rgba(200,169,110,0.3);">🗺 Відкрити маршрут</a>
         </div>
       </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">📍</div>
-        <div class="contact-item-text">
-          <div class="contact-item-label">Наші адреси</div>
-          <div class="contact-item-value">м. Буча, вул. Жовтнева 7 (Левка Лук'яненка)<br>смт Бородянка, вул. Паркова 2Б</div>
+
+      <div class="contact-item" style="flex-direction: column; align-items: flex-start;">
+        <div style="display: flex; align-items: center; gap: 12px; margin-bottom: 12px;">
+          <div class="contact-item-icon" style="width: 36px; height: 36px;">📍</div>
+          <div class="contact-item-label" style="margin: 0; color: var(--accent); font-size: 0.85rem; font-weight: 600;">Магазин Бородянка</div>
+        </div>
+        <div class="contact-item-text" style="width: 100%;">
+          <div class="contact-item-value" style="font-size: 0.95rem; margin-bottom: 8px;">вул. Паркова 2Б</div>
+          <div class="contact-item-value" style="font-size: 1.1rem; font-weight: 500; margin-bottom: 16px;">
+            📞 <a href="tel:+380934680051" style="color: var(--white); text-decoration: none;">+38 (093) 468-00-51</a>
+          </div>
+          <a href="https://share.google/csGmHo0S8ngSTSCz0" target="_blank" class="btn-outline" style="padding: 10px 20px; font-size: 0.85rem; width: 100%; text-align: center; border-color: rgba(200,169,110,0.3);">🗺 Відкрити маршрут</a>
         </div>
       </div>
-      <div class="contact-item">
-        <div class="contact-item-icon">🕐</div>
-        <div class="contact-item-text">
-          <div class="contact-item-label">Режим роботи</div>
-          <div class="contact-item-value">Щодня: 9:00–17:00<br>Сб: 9:00–15:00 · Нд: вихідний</div>
-        </div>
-      </div>
+
     </div>
   </div>
 
   <div class="contact-right reveal">
     <div class="section-label" style="color: var(--accent); margin-bottom: 24px;">Форма замовлення</div>
+
     <div>
       <div class="form-row">
         <div class="form-group">
           <label>Ваше ім'я</label>
-          <input type="text" placeholder="Іван Петренко">
+          <input type="text" id="clientName" placeholder="Іван Петренко">
         </div>
         <div class="form-group">
           <label>Номер телефону</label>
-          <input type="tel" placeholder="+38 (___) ___-__-__">
+          <input type="tel" id="clientPhone" placeholder="+38 (___) ___-__-__">
         </div>
       </div>
+
       <div class="form-group">
         <label>Тип продукту</label>
-        <select>
+        <select id="clientProduct">
           <option value="">Оберіть тип...</option>
-          <option>Металопластикові вікна</option>
-          <option>Вхідні двері</option>
-          <option>Балконний блок / Скління</option>
-          <option>Нестандартна форма (арка, трапеція)</option>
-          <option>Не знаю — потрібна консультація</option>
+          <option value="Металопластикові вікна">Металопластикові вікна</option>
+          <option value="Вхідні двері">Вхідні двері</option>
+          <option value="Балконний блок">Балконний блок</option>
+          <option value="Балконне скління">Балконне скління</option>
+          <option value="Потрібна консультація">Не знаю — потрібна консультація</option>
         </select>
       </div>
+
       <div class="form-group">
         <label>Коментар (необов'язково)</label>
-        <textarea placeholder="Опишіть ваш запит..."></textarea>
+        <textarea id="clientComment" placeholder="Опишіть ваш запит: кількість вікон, поверх, побажання..."></textarea>
       </div>
-      <button class="form-submit" onclick="handleSubmit(this)">Надіслати заявку</button>
+
+      <button class="form-submit" onclick="handleSubmit(this)">
+        Надіслати заявку
+      </button>
+
       <p style="color: rgba(245,242,237,0.3); font-size: 0.78rem; margin-top: 16px; line-height: 1.5;">
-        Натискаючи кнопку, ви погоджуєтесь з обробкою персональних даних.
+        Натискаючи кнопку, ви погоджуєтесь з обробкою персональних даних. Ми не передаємо інформацію третім особам.
       </p>
     </div>
   </div>
 </div>
 
 <footer>
-  <div class="footer-logo">Вікна @<span> двері</span></div>
+  <div class="footer-logo">Guramovich<span> Windows</span></div>
+  
   <div class="footer-links">
-    <a href="https://www.facebook.com/" target="_blank">Магазин «Вікна двері» у Facebook</a>
+    <a href="https://www.facebook.com/share/1DU7kvaXvb/?mibextid=wwXIfr" target="_blank" style="display: flex; align-items: center; gap: 8px; background: #1877f2; color: #fff; padding: 10px 20px; border-radius: 4px; font-weight: 600; text-transform: none; letter-spacing: normal;">
+      <svg width="20" height="20" fill="currentColor" viewBox="0 0 24 24"><path d="M22.675 0H1.325C.593 0 0 .593 0 1.326v21.348C0 23.407.593 24 1.325 24H12.82v-9.294H9.692v-3.622h3.128V8.413c0-3.1 1.894-4.788 4.66-4.788 1.325 0 2.463.099 2.795.143v3.24l-1.918.001c-1.504 0-1.794.715-1.794 1.763v2.309h3.587l-.467 3.622h-3.12V24h6.116c.73 0 1.323-.593 1.323-1.326V1.326C24 .593 23.407 0 22.675 0z"/></svg>
+      Ми у Facebook
+    </a>
   </div>
-  <div class="footer-copy">© 2026 Вікна @ двері. Всі права захищені.</div>
+
+  <div class="footer-copy">© 2026 Guramovich Windows. Всі права захищені.</div>
 </footer>
 
-<script src="script.js"></script>
+<script>
+  // Scroll reveal
+  const reveals = document.querySelectorAll('.reveal');
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry, i) => {
+      if (entry.isIntersecting) {
+        setTimeout(() => entry.target.classList.add('visible'), i * 80);
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+  reveals.forEach(el => observer.observe(el));
+
+  // Nav scroll effect
+  window.addEventListener('scroll', () => {
+    const nav = document.querySelector('nav');
+    nav.style.padding = window.scrollY > 60 ? '14px 60px' : '20px 60px';
+  });
+
+  // CALCULATOR LOGIC
+  let currentType = 'window';
+  let currentProfile = 'standard';
+  let currentGlass = 'double';
+
+  const basePrices = { window: 3200, door: 9800, balcony: 6500 };
+  const profileMult = { standard: 1, comfort: 1.25, premium: 1.6 };
+  const glassMult = { double: 1, triple: 1.18, lowe: 1.32 };
+  const installPrice = { window: 1200, door: 2200, balcony: 1800 };
+
+  function setType(el, val) {
+    currentType = val;
+    document.querySelectorAll('#typeTabs .calc-tab').forEach(b => b.classList.remove('active'));
+    el.classList.add('active'); calc();
+  }
+
+  function setProfile(el, val) {
+    currentProfile = val;
+    document.querySelectorAll('#profileTabs .calc-tab').forEach(b => b.classList.remove('active'));
+    el.classList.add('active'); calc();
+  }
+
+  function setGlass(el, val) {
+    currentGlass = val;
+    document.querySelectorAll('#glassTabs .calc-tab').forEach(b => b.classList.remove('active'));
+    el.classList.add('active'); calc();
+  }
+
+  function adjustDim(id, delta) {
+    const el = document.getElementById(id);
+    el.value = Math.max(40, Math.min(300, parseInt(el.value || 100) + delta));
+    calc();
+  }
+
+  function fmt(n) { return n.toLocaleString('uk-UA') + ' ₴'; }
+
+  function calc() {
+    const w = parseInt(document.getElementById('width').value) || 120;
+    const h = parseInt(document.getElementById('height').value) || 140;
+    const qty = parseInt(document.getElementById('qty').value) || 1;
+
+    const area = (w / 100) * (h / 100);
+    const areaFactor = Math.max(0.7, Math.min(2.5, area));
+
+    let base = basePrices[currentType] * profileMult[currentProfile] * glassMult[currentGlass] * areaFactor;
+    base = Math.round(base / 50) * 50;
+
+    let options = 0;
+    if (document.getElementById('opt_sill').checked) options += Math.round(w * 18);
+    if (document.getElementById('opt_mosquito').checked) options += 680;
+    if (document.getElementById('opt_color').checked) options += Math.round(base * 0.12);
+
+    let install = 0;
+    if (document.getElementById('opt_install').checked) install = installPrice[currentType];
+
+    const perUnit = base + options + install;
+    const total = perUnit * qty;
+
+    document.getElementById('resultPrice').textContent = fmt(perUnit);
+    document.getElementById('resultPer').textContent = qty > 1 ? `за 1 шт. · разом: ${fmt(total)}` : 'за 1 шт.';
+
+    document.getElementById('b_product').textContent = fmt(base);
+    document.getElementById('b_install').textContent = install ? fmt(install) : 'не обрано';
+    document.getElementById('b_options').textContent = options ? fmt(options) : 'не обрано';
+    document.getElementById('b_total').textContent = fmt(total);
+  }
+
+  calc();
+
+  // ОНОВЛЕНА ЛОГІКА ВІДПРАВКИ ФОРМИ (WEBHOOK)
+  async function handleSubmit(btn) {
+    const name = document.getElementById('clientName').value.trim();
+    const phone = document.getElementById('clientPhone').value.trim();
+    const product = document.getElementById('clientProduct').value;
+    const comment = document.getElementById('clientComment').value.trim();
+
+    // Перевірка на заповненість
+    if (!name || !phone) {
+      alert('Будь ласка, вкажіть ваше ім\'я та номер телефону.');
+      return;
+    }
+
+    const originalText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Відправка...';
+
+    // Твій вебхук
+    const WEBHOOK_URL = 'https://script.google.com/macros/s/AKfycbzx_CK43-reXVZ4amB-MynFlYHUSTTRnauj8BVpkOvAtbE2zaB5ytNv0cfKh_bVKTT3Eg/exec';
+
+    const payload = {
+      name: name,
+      phone: phone,
+      product: product || 'Не обрано',
+      comment: comment || 'Немає'
+    };
+
+    try {
+      // Використовуємо text/plain, щоб браузер не блокував запит (CORS Preflight)
+      await fetch(WEBHOOK_URL, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'text/plain;charset=utf-8'
+        },
+        body: JSON.stringify(payload)
+      });
+
+      // Зміна статусу на кнопці при успішній відправці
+      btn.textContent = '✓ Заявку надіслано!';
+      btn.style.background = '#4caf50';
+      
+      // Очищення полів
+      document.getElementById('clientName').value = '';
+      document.getElementById('clientPhone').value = '';
+      document.getElementById('clientProduct').value = '';
+      document.getElementById('clientComment').value = '';
+
+    } catch (error) {
+      console.error('Помилка відправки:', error);
+      btn.textContent = '❌ Помилка. Спробуйте ще';
+      btn.style.background = '#f44336';
+    }
+
+    // Повернення кнопки до стандартного вигляду через 4 секунди
+    setTimeout(() => {
+      btn.textContent = originalText;
+      btn.style.background = '';
+      btn.disabled = false;
+    }, 4000);
+  }
+</script>
+
 </body>
 </html>
