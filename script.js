@@ -29,7 +29,7 @@ let currentType = 'window';
 let currentProfile = 'standard';
 let currentGlass = 'double';
 
-const basePrices = { window: 3500, door: 6800, balcony: 10500 };
+const basePrices = { window: 4200, door: 8200, balcony: 12500 };
 const profileMult = { standard: 1, comfort: 1.25, premium: 1.6 };
 const glassMult = { double: 1, triple: 1.18, lowe: 1.32 };
 
