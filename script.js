@@ -87,13 +87,13 @@ function calc() {
   let options = 0;
   
   const optSill = document.getElementById('opt_sill');
-  if (optSill && optSill.checked) options += Math.round(w * 18);
+  if (optSill && optSill.checked) options += Math.round(base * 0.12);
 
   const optMosq = document.getElementById('opt_mosquito');
   if (optMosq && optMosq.checked) options += 680;
 
   const optColor = document.getElementById('opt_color');
-  if (optColor && optColor.checked) options += Math.round(base * 0.12);
+  if (optColor && optColor.checked) options += Math.round(w * 18);
 
   let install = 0;
   const optInstall = document.getElementById('opt_install');
