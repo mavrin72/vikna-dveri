@@ -29,7 +29,7 @@ let currentType = 'window';
 let currentProfile = 'standard';
 let currentGlass = 'double';
 
-const basePrices = { window: 3500, door: 6800, balcony: 10500 };
+const basePrices = { window: 4200, door: 8200, balcony: 12500 };
 const profileMult = { standard: 1, comfort: 1.25, premium: 1.6 };
 const glassMult = { double: 1, triple: 1.18, lowe: 1.32 };
 
@@ -87,13 +87,13 @@ function calc() {
   let options = 0;
   
   const optSill = document.getElementById('opt_sill');
-  if (optSill && optSill.checked) options += Math.round(w * 18);
+  if (optSill && optSill.checked) options += Math.round(base * 0.12);
 
   const optMosq = document.getElementById('opt_mosquito');
   if (optMosq && optMosq.checked) options += 680;
 
   const optColor = document.getElementById('opt_color');
-  if (optColor && optColor.checked) options += Math.round(base * 0.12);
+  if (optColor && optColor.checked) options += Math.round(w * 18);
 
   let install = 0;
   const optInstall = document.getElementById('opt_install');
